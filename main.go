@@ -12,8 +12,8 @@ type Registry struct {
 	Nodes map[string]*Node
 }
 
-func (r *Registry) CreateNode(id string, data string) *Node {
-	node := &Node{ID: id, Data: data}
+func (r *Registry) CreateNode(id string, data ...string) *Node {
+	node := &Node{ID: id, Data: data[0]}
 	r.Nodes[id] = node
 	return node
 }
