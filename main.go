@@ -12,8 +12,13 @@ type Registry struct {
 	Nodes map[string]*Node
 }
 
+func (r *Registry) Init() {
+	r.Nodes = make(map[string]*Node)
+}
+
 func (r *Registry) CreateNode(id string, data ...string) *Node {
 	node := &Node{ID: id, Data: data[0]}
+	assert(r.Nodes != nil, "registry is nil")
 	assert(r.Nodes[id] == nil, "node already exists")
 	r.Nodes[id] = node
 	return node
@@ -26,7 +31,7 @@ type Node struct {
 
 func main() {
 	registry := &Registry{}
-
+	registry.Init()
 	registry.CreateNode("1", "Hello, World!")
 
 	assert(len(registry.Nodes) == 1)
