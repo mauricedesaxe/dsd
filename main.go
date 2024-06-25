@@ -31,6 +31,10 @@ type Node struct {
 	Registry *Registry
 }
 
+func (n *Node) Edit(data string) {
+	n.Data = data
+}
+
 func main() {
 	registry := &Registry{}
 	registry.Init()
@@ -39,4 +43,7 @@ func main() {
 	assert(len(registry.Nodes) == 1)
 	assert(registry.Nodes["1"].ID == "1")
 	assert(registry.Nodes["1"].Data == "Hello, World!")
+
+	registry.Nodes["1"].Edit("Bye, World!")
+	assert(registry.Nodes["1"].Data == "Bye, World!")
 }
