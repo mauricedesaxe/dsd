@@ -1,0 +1,12 @@
+.env
+.idea
+.vscode
+.DS_Store
+
+db.sqlite3
+*.code-workspace
+
+dist
+build
+tmp
+*.log
