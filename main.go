@@ -14,6 +14,7 @@ type Registry struct {
 
 func (r *Registry) CreateNode(id string, data ...string) *Node {
 	node := &Node{ID: id, Data: data[0]}
+	assert(r.Nodes[id] == nil, "node already exists")
 	r.Nodes[id] = node
 	return node
 }
