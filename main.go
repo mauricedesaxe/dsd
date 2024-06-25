@@ -20,13 +20,15 @@ func (r *Registry) CreateNode(id string, data ...string) *Node {
 	node := &Node{ID: id, Data: data[0]}
 	assert(r.Nodes != nil, "registry is nil")
 	assert(r.Nodes[id] == nil, "node already exists")
+	node.Registry = r
 	r.Nodes[id] = node
 	return node
 }
 
 type Node struct {
-	ID   string
-	Data string
+	ID       string
+	Data     string
+	Registry *Registry
 }
 
 func main() {
