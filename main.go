@@ -59,8 +59,21 @@ func (n *Node) Pull() {
 	n.Data = winner
 }
 
+func (n *Node) Push() {
+	for _, node := range n.Registry.Nodes {
+		if node.ID != n.ID {
+			node.Data = n.Data
+		}
+	}
+}
+
 func (n *Node) Edit(data string) {
+	if n.Data == data {
+		return
+	}
+
 	n.Data = data
+	n.Push()
 }
 
 func main() {
@@ -80,4 +93,9 @@ func main() {
 	assert(len(registry.Nodes) == 2, "registry has 2 nodes")
 	assert(registry.Nodes["2"].ID == "2", "node 2 has id 2")
 	assert(registry.Nodes["2"].Data == "Bye, World!", "node 2 has data: Bye, World!")
+
+	registry.Nodes["2"].Edit("Hello, World!")
+	for _, node := range registry.Nodes {
+		assert(node.Data == "Hello, World!", "node "+node.ID+" has data: Hello, World!")
+	}
 }
