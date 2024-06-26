@@ -2,13 +2,19 @@ package main
 
 import (
 	"fmt"
+	"math/rand"
 	"strings"
+	"time"
 )
 
 func assert(condition bool, msg ...string) {
 	if !condition {
 		panic("assertion failed: " + strings.Join(msg, " "))
 	}
+}
+
+func simulate_latency() {
+	time.Sleep(time.Duration(rand.Intn(100)) * time.Millisecond)
 }
 
 type Registry struct {
@@ -41,6 +47,7 @@ func (n *Node) Pull() {
 	results := []string{}
 	for _, node := range n.Registry.Nodes {
 		if node.ID != n.ID {
+			simulate_latency()
 			results = append(results, node.Data)
 		}
 	}
@@ -63,6 +70,7 @@ func (n *Node) Pull() {
 func (n *Node) Push() {
 	for _, node := range n.Registry.Nodes {
 		if node.ID != n.ID {
+			simulate_latency()
 			node.Data = n.Data
 		}
 	}
