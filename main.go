@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"strings"
 )
 
@@ -100,6 +101,15 @@ func main() {
 
 	// edit node 2
 	registry.Nodes["2"].Edit("Hello, World!")
+	for _, node := range registry.Nodes {
+		assert(node.Data == "Hello, World!", "node "+node.ID+" has data: Hello, World!")
+	}
+
+	// create many nodes
+	for i := 3; i < 300; i++ {
+		nodeI := registry.CreateNode(fmt.Sprintf("%d", i))
+		nodeI.Pull()
+	}
 	for _, node := range registry.Nodes {
 		assert(node.Data == "Hello, World!", "node "+node.ID+" has data: Hello, World!")
 	}
